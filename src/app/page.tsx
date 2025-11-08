@@ -1,8 +1,6 @@
 "use client"
 
-import { Search } from "lucide-react"
 import { AppHeader } from '@/components/layout/AppHeader'
-import { Button } from "@/ui"
 
 export default function Home() {
 

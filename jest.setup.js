@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom'
 
-// Mock next/navigation
 jest.mock('next/navigation', () => ({
   useRouter() {
     return {
@@ -19,10 +18,3 @@ jest.mock('next/navigation', () => ({
     return ''
   },
 }))
-
-// Setup MSW
-import { server } from './src/__tests__/mocks/server'
-
-beforeAll(() => server.listen())
-afterEach(() => server.resetHandlers())
-afterAll(() => server.close())

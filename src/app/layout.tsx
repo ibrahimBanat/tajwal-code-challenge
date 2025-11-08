@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { QueryProvider } from '@/components/providers/query-provider'
+import { PerformanceMonitor } from '@/components/monitoring/PerformanceMonitor'
+import { PerformanceDashboard } from '@/components/monitoring/PerformanceDashboard'
 import { env } from '@/lib/env'
 import './globals.css'
 
@@ -19,6 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <PerformanceMonitor />
+        <PerformanceDashboard />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
