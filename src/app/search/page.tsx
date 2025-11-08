@@ -1,17 +1,16 @@
 "use client"
 
-import { useEffect } from "react"
+import { Suspense, useEffect } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  
+
   useEffect(() => {
     const query = searchParams.get('q')
     const type = searchParams.get('type') || 'repositories'
-    
-    // Redirect to new URL structure
+
     if (query) {
       router.replace(`/search/${type}?q=${encodeURIComponent(query)}`)
     } else {
@@ -25,5 +24,13 @@ export default function SearchPage() {
         <p className="text-gray-600">Redirecting...</p>
       </div>
     </div>
+  )
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><p className="text-gray-600">Loading...</p></div>}>
+      <SearchContent />
+    </Suspense>
   )
 }

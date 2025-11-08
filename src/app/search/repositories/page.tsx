@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { Suspense, useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { AppHeader } from "@/components/layout/AppHeader"
@@ -23,7 +23,7 @@ interface GitHubRepository {
   fork: boolean
 }
 
-export default function RepositoriesSearchPage() {
+function RepositoriesSearchContent() {
   const searchParams = useSearchParams()
   const query = searchParams.get('q') || ''
   const [filters, setFilters] = useState<any>({})
@@ -123,5 +123,13 @@ export default function RepositoriesSearchPage() {
       
       <BackToTopButton />
     </div>
+  )
+}
+
+export default function RepositoriesSearchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50"><AppHeader /><div className="container mx-auto px-4 py-8 text-center">Loading...</div></div>}>
+      <RepositoriesSearchContent />
+    </Suspense>
   )
 }
