@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { AppHeader } from "@/components/layout/AppHeader"
@@ -24,7 +24,7 @@ interface GitHubUser {
   type?: string
 }
 
-export default function UsersSearchPage() {
+function UsersSearchContent() {
   const searchParams = useSearchParams()
   const query = searchParams.get('q') || ''
   const [filters, setFilters] = useState<any>({})
@@ -132,5 +132,13 @@ export default function UsersSearchPage() {
       
       <BackToTopButton />
     </div>
+  )
+}
+
+export default function UsersSearchPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50"><AppHeader /><div className="container mx-auto px-4 py-8 text-center">Loading...</div></div>}>
+      <UsersSearchContent />
+    </Suspense>
   )
 }
