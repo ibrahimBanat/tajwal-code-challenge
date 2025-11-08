@@ -11,6 +11,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "analyze": "ANALYZE=true pnpm build",
     "prepare": "husky"
   },
   "keywords": [],
@@ -42,10 +43,12 @@
     "react-dom": "^19.2.0",
     "tailwind-merge": "^3.3.1",
     "use-debounce": "^10.0.6",
+    "web-vitals": "^5.1.0",
     "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
+    "@next/bundle-analyzer": "^16.0.1",
     "@tailwindcss/postcss": "^4.1.17",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
