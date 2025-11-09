@@ -1,5 +1,0 @@
-export { Avatar } from './components/Avatar'
-export { Badge } from './components/Badge'
-export { Button } from './components/Button'
-export { Card, CardHeader, CardFooter, CardTitle, CardAction, CardDescription, CardContent } from './components/Card'
-export { Input } from './components/Input'

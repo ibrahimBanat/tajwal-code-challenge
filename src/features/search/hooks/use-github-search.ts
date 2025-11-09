@@ -1,5 +1,5 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
-import { useDebounce } from './use-debounce'
+import { useDebounce } from '@/hooks/use-debounce'
 import { githubApi } from '@/lib/github-api'
 import { env } from '@/lib/env'
 import type {

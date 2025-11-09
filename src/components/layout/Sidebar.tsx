@@ -2,7 +2,7 @@
 
 import { Search, GitBranch, GitMerge, Settings, BarChart3, Calendar, Play, FileText, FolderOpen } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { Input } from "@/ui"
+import { Input } from "@/components/ui"
 
 const navigation = [
   { name: "Project", icon: FolderOpen, href: "#", current: false },

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react"
 import { Star, GitFork, Eye, AlertCircle } from "lucide-react"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge } from "@/ui"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge } from "@/components/ui"
+import { If } from "@/components/common"
 
 interface Repository {
   id: number
@@ -111,13 +112,13 @@ export function RepositoryResults({
 
   return (
     <div className="space-y-4">
-      {totalCount && (
+      <If condition={!!totalCount}>
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">
-            Repositories ({totalCount.toLocaleString()})
+            Repositories ({totalCount?.toLocaleString()})
           </h2>
         </div>
-      )}
+      </If>
 
       <div className="space-y-4">
         {repositories.map((repo) => (
@@ -126,93 +127,92 @@ export function RepositoryResults({
               <div className="flex items-start justify-between">
                 <div className="space-y-2 flex-1">
                   <CardTitle>
-                    <a 
-                      href={repo.html_url} 
-                      target="_blank" 
+                    <a
+                      href={repo.html_url}
+                      target="_blank"
                       rel="noopener noreferrer"
                       className="hover:text-blue-600 transition-colors"
                     >
                       {repo.full_name}
                     </a>
                   </CardTitle>
-                  {repo.description && (
+                  <If condition={!!repo.description}>
                     <CardDescription className="line-clamp-2">
                       {repo.description}
                     </CardDescription>
-                  )}
+                  </If>
                 </div>
-                {repo.fork && (
+                <If condition={repo.fork}>
                   <Badge variant="outline" className="ml-4">
                     <GitFork className="h-3 w-3 mr-1" />
                     Fork
                   </Badge>
-                )}
+                </If>
               </div>
             </CardHeader>
 
             <CardContent>
               <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
-                {repo.language && (
+                <If condition={!!repo.language}>
                   <div className="flex items-center gap-1">
                     <div className="w-3 h-3 rounded-full bg-blue-500"></div>
                     {repo.language}
                   </div>
-                )}
-                
+                </If>
+
                 <div className="flex items-center gap-1">
                   <Star className="h-4 w-4" />
                   {repo.stargazers_count.toLocaleString()}
                 </div>
-                
+
                 <div className="flex items-center gap-1">
                   <GitFork className="h-4 w-4" />
                   {repo.forks_count.toLocaleString()}
                 </div>
-                
+
                 <div className="flex items-center gap-1">
                   <Eye className="h-4 w-4" />
                   {repo.watchers_count.toLocaleString()}
                 </div>
 
-                {repo.updated_at && (
+                <If condition={!!repo.updated_at}>
                   <span className="text-gray-500">
                     Updated {new Date(repo.updated_at).toLocaleDateString()}
                   </span>
-                )}
+                </If>
               </div>
 
-              {repo.topics && repo.topics.length > 0 && (
+              <If condition={!!(repo.topics && repo.topics.length > 0)}>
                 <div className="flex flex-wrap gap-2 mt-3">
-                  {repo.topics.slice(0, 5).map((topic) => (
+                  {repo.topics!.slice(0, 5).map((topic) => (
                     <Badge key={topic} variant="secondary" className="text-xs">
                       {topic}
                     </Badge>
                   ))}
-                  {repo.topics.length > 5 && (
+                  <If condition={repo.topics!.length > 5}>
                     <Badge variant="outline" className="text-xs">
-                      +{repo.topics.length - 5} more
+                      +{repo.topics!.length - 5} more
                     </Badge>
-                  )}
+                  </If>
                 </div>
-              )}
+              </If>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* Infinite scroll trigger */}
-      {hasNextPage && (
+      <If condition={!!hasNextPage}>
         <div ref={loadMoreRef} className="py-4 min-h-[40px]">
-          {isFetchingNextPage && (
+          <If condition={!!isFetchingNextPage}>
             <div className="flex justify-center">
               <div className="flex items-center gap-2 text-gray-500">
                 <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
                 Loading more repositories...
               </div>
             </div>
-          )}
+          </If>
         </div>
-      )}
+      </If>
     </div>
   )
 }

@@ -4,9 +4,9 @@ import { Suspense, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { AppHeader } from "@/components/layout/AppHeader"
-import { SearchFilters } from "@/components/search/SearchFilters"
-import { UserResults } from "@/components/search/UserResults"
-import { BackToTopButton } from "@/components/ui/BackToTopButton"
+import { SearchFilters, UserResults } from "@/features/search"
+import { BackToTopButton } from "@/components/ui"
+import { Conditional, Then, Else } from "@/components/common"
 import { env } from "@/lib/env"
 
 interface GitHubUser {
@@ -93,15 +93,15 @@ function UsersSearchContent() {
   return (
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <AppHeader />
-      
+
       <main className="container mx-auto px-4 py-8">
-        {query && (
-          <>
+        <Conditional condition={!!query}>
+          <Then>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-2">
               <h1 className="text-2xl font-bold break-words">
                 User search results for "{query}"
               </h1>
-              
+
               <SearchFilters
                 searchType="users"
                 onFiltersChange={setFilters}
@@ -118,18 +118,17 @@ function UsersSearchContent() {
               isFetchingNextPage={userFetching}
               totalCount={totalCount}
             />
-          </>
-        )}
-
-        {!query && (
-          <div className="text-center py-12">
-            <h2 className="text-xl text-gray-600">
-              Use the search bar above to find users
-            </h2>
-          </div>
-        )}
+          </Then>
+          <Else>
+            <div className="text-center py-12">
+              <h2 className="text-xl text-gray-600">
+                Use the search bar above to find users
+              </h2>
+            </div>
+          </Else>
+        </Conditional>
       </main>
-      
+
       <BackToTopButton />
     </div>
   )

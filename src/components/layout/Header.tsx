@@ -1,7 +1,7 @@
 "use client"
 
 import { ChevronRight, Play, MoreHorizontal, RefreshCw } from "lucide-react"
-import { Button, Badge } from "@/ui"
+import { Button, Badge } from "@/components/ui"
 import { cn } from "@/lib/utils"
 
 const filterTabs = [
