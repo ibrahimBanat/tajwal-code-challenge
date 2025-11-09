@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { SearchInput } from '../SearchInput'
+import { SearchInput } from '../search-input'
 
 // Mock next/navigation
 const mockPush = jest.fn()

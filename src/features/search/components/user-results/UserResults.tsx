@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react"
 import { MapPin, Users, Building, AlertCircle } from "lucide-react"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge } from "@/ui"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, Badge } from "@/components/ui"
+import { If } from "@/components/common"
 
 interface User {
   id: number
@@ -109,68 +110,67 @@ export function UserResults({
 
   return (
     <div className="space-y-4">
-      {totalCount && (
+      <If condition={!!totalCount}>
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">
-            Users ({totalCount.toLocaleString()})
+            Users ({totalCount?.toLocaleString()})
           </h2>
         </div>
-      )}
+      </If>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {users.map((user) => (
           <Card key={user.id} className="hover:shadow-md transition-shadow">
             <CardHeader className="text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-gray-100">
-                <img 
-                  src={user.avatar_url} 
+                <img
+                  src={user.avatar_url}
                   alt={`${user.login}'s avatar`}
                   className="w-full h-full object-cover"
                 />
               </div>
-              
+
               <CardTitle>
-                <a 
-                  href={user.html_url} 
-                  target="_blank" 
+                <a
+                  href={user.html_url}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-blue-600 transition-colors"
                 >
                   {user.login}
                 </a>
               </CardTitle>
-              
-              {user.name && (
+
+              <If condition={!!user.name}>
                 <CardDescription>
                   {user.name}
                 </CardDescription>
-              )}
+              </If>
             </CardHeader>
 
             <CardContent className="space-y-3">
-              {user.bio && (
+              <If condition={!!user.bio}>
                 <p className="text-sm text-gray-600 line-clamp-3">
                   {user.bio}
                 </p>
-              )}
+              </If>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* Infinite scroll trigger */}
-      {hasNextPage && (
+      <If condition={!!hasNextPage}>
         <div ref={loadMoreRef} className="py-4 min-h-[40px]">
-          {isFetchingNextPage && (
+          <If condition={!!isFetchingNextPage}>
             <div className="flex justify-center">
               <div className="flex items-center gap-2 text-gray-500">
                 <div className="w-4 h-4 border-2 border-gray-300 border-t-green-500 rounded-full animate-spin"></div>
                 Loading more users...
               </div>
             </div>
-          )}
+          </If>
         </div>
-      )}
+      </If>
     </div>
   )
 }

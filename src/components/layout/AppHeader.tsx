@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Search, GitBranch, User, Clock, X } from "lucide-react"
+import {twMerge} from "tailwind-merge";
 
 interface RecentSearch {
   id: string
@@ -160,9 +161,10 @@ export function AppHeader() {
                     <div className="flex rounded-lg p-1 bg-[#f2f2f2] gap-1">
                       <button
                           onClick={() => setSearchType("repositories")}
-                          className={`p-1 hover:bg-gray-50 transition-colors rounded-lg ${
-                              searchType === "repositories" ? "bg-blue-50 text-blue-600" : "text-gray-600"
-                          }`}
+                          className={twMerge(
+                              "p-1 hover:bg-gray-50 transition-colors rounded-lg text-gray-600",
+                              searchType === "repositories" && "bg-blue-50 text-blue-600\""
+                          )}
                           title="Search Repositories"
                       >
                         <GitBranch className="h-5 w-5"/>
@@ -170,9 +172,10 @@ export function AppHeader() {
                       <div className="h-full w-px bg-gray-300"></div>
                       <button
                           onClick={() => setSearchType("users")}
-                          className={`p-1 hover:bg-gray-50 transition-colors rounded-lg ${
-                              searchType === "users" ? "bg-green-50 text-green-600" : "text-gray-600"
-                          }`}
+                          className={twMerge(
+                              "p-1 hover:bg-gray-50 transition-colors rounded-lg text-gray-600",
+                              searchType === "users" && "bg-green-50 text-green-600"
+                          )}
                           title="Search Users"
                       >
                         <User className="h-5 w-5"/>
@@ -209,16 +212,15 @@ export function AppHeader() {
                             onClick={() => handleRecentSearch(search)}
                             className="flex items-center gap-3 flex-1 text-left"
                           >
-                            <div className={`w-6 h-6 rounded-md flex items-center justify-center shrink-0 ${
-                              search.type === "repositories" 
-                                ? "bg-blue-100 text-blue-600" 
-                                : "bg-green-100 text-green-600"
-                            }`}>
-                              {search.type === "repositories" ? (
-                                <GitBranch className="h-3 w-3 shrink-0" />
-                              ) : (
-                                <User className="h-3 w-3 shrink-0" />
-                              )}
+                            <div className={twMerge(
+                                    "w-6 h-6 rounded-md flex items-center justify-center shrink-0 bg-green-100 text-green-600",
+                                    search?.type === "repositories" && "bg-blue-100 text-blue-600"
+                            )}>
+                                {search.type === "repositories" ? (
+                                  <GitBranch className="h-3 w-3 shrink-0" />
+                                ) : (
+                                  <User className="h-3 w-3 shrink-0" />
+                                )}
                             </div>
                             <div className="max-w-full">
                               <div className="text-sm font-medium text-gray-900 line-clamp-1 break-all">{search.query}</div>
@@ -239,11 +241,10 @@ export function AppHeader() {
                     </div>
                   ) : (
                     <div className="flex flex-col items-center justify-center py-8 text-center">
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-3 ${
-                        searchType === "repositories" 
-                          ? "bg-blue-100 text-blue-600" 
-                          : "bg-green-100 text-green-600"
-                      }`}>
+                      <div className={twMerge(
+                              "w-12 h-12 rounded-full flex items-center justify-center mb-3 bg-green-100 text-green-600",
+                              searchType === "repositories" && "bg-blue-100 text-blue-600"
+                      )}>
                         {searchType === "repositories" ? (
                           <GitBranch className="h-6 w-6" />
                         ) : (

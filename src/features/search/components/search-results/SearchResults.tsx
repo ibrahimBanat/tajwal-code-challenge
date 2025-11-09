@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { RepositoryResults } from "./RepositoryResults"
-import { UserResults } from "./UserResults"
-import { SearchFilters } from "./SearchFilters"
+import { RepositoryResults } from "../repository-results"
+import { UserResults } from "../user-results"
+import { SearchFilters } from "../search-filters"
 
 interface SearchResultsProps {
   query: string

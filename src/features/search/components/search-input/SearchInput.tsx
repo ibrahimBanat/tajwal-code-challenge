@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react"
 import { Search } from "lucide-react"
 import { useDebounce } from "@/hooks/use-debounce"
-import { useSearchStore } from "@/store/search-store"
-import { Input } from "@/ui"
+import { useSearchStore } from "@/features/search/store"
+import { Input } from "@/components/ui"
 import { cn } from "@/lib/utils"
 
 interface SearchInputProps {

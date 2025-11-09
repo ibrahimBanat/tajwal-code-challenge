@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { getPerformanceMetrics, exportAllMetrics } from '@/lib/web-vitals'
+import {twMerge} from "tailwind-merge";
 
 interface PerformanceMetrics {
   dns: number
@@ -128,18 +129,20 @@ export function PerformanceDashboard() {
         <div className="border-t border-gray-200 pt-2 mt-2">
           <div className="flex justify-between">
             <span className="text-gray-600 font-semibold">Total Load Time:</span>
-            <span
-              className={`font-mono font-bold ${getColor(metrics.total, { good: 1000, poor: 3000 })}`}
-            >
+            <span className={twMerge(
+                    "font-mono font-bold",
+                    getColor(metrics.total, {good: 1000, poor: 3000})
+            )}>
               {formatTime(metrics.total)}
             </span>
           </div>
           {metrics.fcp && (
             <div className="flex justify-between mt-1">
               <span className="text-gray-600 font-semibold">First Contentful Paint:</span>
-              <span
-                className={`font-mono font-bold ${getColor(metrics.fcp, { good: 1800, poor: 3000 })}`}
-              >
+              <span className={twMerge(
+                  "font-mono font-bold",
+                  getColor(metrics.fcp, {good: 1800, poor: 3000})
+              )}>
                 {formatTime(metrics.fcp)}
               </span>
             </div>

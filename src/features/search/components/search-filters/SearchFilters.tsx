@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
-import { Button } from "@/ui"
+import { Button } from "@/components/ui"
 import { cn } from "@/lib/utils"
 
 interface SearchFiltersProps {

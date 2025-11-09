@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { QueryProvider } from '@/components/providers/query-provider'
-import { PerformanceMonitor } from '@/components/monitoring/PerformanceMonitor'
-import { PerformanceDashboard } from '@/components/monitoring/PerformanceDashboard'
+import { PerformanceMonitor, PerformanceDashboard } from '@/features/monitoring'
 import { env } from '@/lib/env'
 import './globals.css'
 
